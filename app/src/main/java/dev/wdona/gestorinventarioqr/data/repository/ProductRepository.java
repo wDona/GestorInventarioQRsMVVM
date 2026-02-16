@@ -1,5 +1,10 @@
 package dev.wdona.gestorinventarioqr.data.repository;
 
-public interface ProductRepository {
+import dev.wdona.gestorinventarioqr.domain.model.Estanteria;
+import dev.wdona.gestorinventarioqr.domain.model.Producto;
 
+public interface ProductRepository {
+    void addUndsProduct(Producto producto);
+    void removeUndsProduct(Producto producto);
+    void assignProductToEstanteria(Producto producto, Estanteria estanteria);
 }
