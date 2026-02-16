@@ -20,6 +20,7 @@ public class ProductRepositoryImpl implements ProductRepository {
             remote.addUndsProduct(producto);
         } catch (Exception e) {
             local.addPendienteProduct(producto);
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
@@ -29,6 +30,7 @@ public class ProductRepositoryImpl implements ProductRepository {
             remote.removeUndsProduct(producto);
         } catch (Exception e) {
             local.addPendienteProduct(producto);
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
@@ -38,6 +40,7 @@ public class ProductRepositoryImpl implements ProductRepository {
             remote.assignProductToEstanteria(producto, estanteria);
         } catch (Exception e) {
             local.addPendienteProduct(producto);
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
