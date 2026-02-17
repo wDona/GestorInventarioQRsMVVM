@@ -15,7 +15,7 @@ public class ProductoLocalDataSourceImpl implements ProductoLocalDataSource {
     @Override
     public void addUndsProduct(Producto producto) {
         try {
-            // Actualizar el producto y el producto de la lista de la estanteria
+            dao.addUndsProduct(producto.getId(), producto.getCantidad());
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -24,7 +24,7 @@ public class ProductoLocalDataSourceImpl implements ProductoLocalDataSource {
     @Override
     public void removeUndsProduct(Producto producto) {
         try {
-            // Actualizar el producto y el producto de la lista de la estanteria
+            dao.removeUndsProduct(producto.getId(), producto.getCantidad());
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -33,7 +33,7 @@ public class ProductoLocalDataSourceImpl implements ProductoLocalDataSource {
     @Override
     public void assignProductToEstanteria(Producto producto, Estanteria estanteria) {
         try {
-            // Actualizar el producto y el producto de la lista de la estanteria
+            dao.assignProductToEstanteria(producto.getId(), estanteria.getId());
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -42,6 +42,7 @@ public class ProductoLocalDataSourceImpl implements ProductoLocalDataSource {
     public void addPendienteProduct(Producto producto) {
         try {
             // Agregar el producto a la lista de pendientes
+                dao.addPendienteProduct(producto.getId(), producto.getCantidad());
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }

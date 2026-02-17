@@ -10,6 +10,7 @@ public class ProductoMapper {
             return null;
         }
         return new Producto(
+                entity.getId(),
                 entity.getNombre(),
                 entity.getPrecio(),
                 entity.getCantidad(),

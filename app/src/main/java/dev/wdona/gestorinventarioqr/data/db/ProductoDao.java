@@ -15,5 +15,5 @@ public interface ProductoDao {
     void assignProductToEstanteria(Long productoId, Long estanteriaId);
 
     // TODO
-    void addPendienteProduct(Producto producto);
+    void addPendienteProduct(Long id, int cantidad);
 }

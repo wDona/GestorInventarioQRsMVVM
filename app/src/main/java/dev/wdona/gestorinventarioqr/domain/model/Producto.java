@@ -1,13 +1,15 @@
 package dev.wdona.gestorinventarioqr.domain.model;
 
 public class Producto {
+    private Long id;
     private String nombre;
     private double precio;
     private int cantidad;
 
     private Estanteria estanteria;
 
-    public Producto(String nombre, double precio, int cantidad, Estanteria estanteria) {
+    public Producto(Long id, String nombre, double precio, int cantidad, Estanteria estanteria) {
+        this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.cantidad = cantidad;
@@ -44,5 +46,9 @@ public class Producto {
 
     public void setEstanteria(Estanteria estanteria) {
         this.estanteria = estanteria;
+    }
+
+    public Long getId() {
+        return this.id;
     }
 }
