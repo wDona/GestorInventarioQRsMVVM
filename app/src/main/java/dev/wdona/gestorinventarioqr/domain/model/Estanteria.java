@@ -41,4 +41,10 @@ public class Estanteria {
     public void setProductos(List<Producto> productos) {
         this.productos = productos;
     }
+
+    public void addProducto(Producto producto) {
+        if (this.productos != null) {
+            this.productos.add(producto);
+        }
+    }
 }
