@@ -47,17 +47,16 @@ public class QRIdentifier {
             return new QRResult(QRType.PRODUCTO, id, qrData);
         }
 
-        // TODO: Añadir más reglas de identificación según necesites
-
         return new QRResult(QRType.UNKNOWN, null, qrData);
     }
 
     private static String extractId(String data, String separator) {
-        int index = data.lastIndexOf(separator);
+
+        int index = data.trim().lastIndexOf(separator);
         if (index != -1 && index < data.length() - 1) {
-            return data.substring(index + 1);
+            return data.trim().substring(index + 1);
         }
-        return data;
+        return data.trim();
     }
 }
 

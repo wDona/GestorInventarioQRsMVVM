@@ -1,15 +1,13 @@
 package dev.wdona.gestorinventarioqr.data.api.impl;
 
-import android.provider.ContactsContract;
-
 import dev.wdona.gestorinventarioqr.data.api.ProductoApi;
 import dev.wdona.gestorinventarioqr.domain.model.Estanteria;
 import dev.wdona.gestorinventarioqr.domain.model.Producto;
-import dev.wdona.gestorinventarioqr.mock.DatabaseController;
+import dev.wdona.gestorinventarioqr.mock.MockDatabaseController;
 import dev.wdona.gestorinventarioqr.mock.MockDatabaseOperations;
 
 public class ProductoApiImpl implements ProductoApi {
-    MockDatabaseOperations mockDatabaseOperations = new DatabaseController();
+    MockDatabaseOperations mockDatabaseOperations = new MockDatabaseController();
     @Override
     public void addUndsProduct(Producto producto, int cantidad) {
         if (producto == null || cantidad <= 0) {

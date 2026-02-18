@@ -34,8 +34,9 @@ public class ProductoRepositoryImpl implements ProductoRepository {
                             "PENDIENTE"
                     )
             );
-            local.addUndsProduct(producto, cantidad);
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            local.addUndsProduct(producto, cantidad);
         }
     }
 
@@ -55,8 +56,9 @@ public class ProductoRepositoryImpl implements ProductoRepository {
                             "PENDIENTE"
                     )
             );
-            local.removeUndsProduct(producto, cantidad);
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            local.removeUndsProduct(producto, cantidad);
         }
     }
 
@@ -76,8 +78,9 @@ public class ProductoRepositoryImpl implements ProductoRepository {
                             "PENDIENTE"
                     )
             );
-            local.assignProductToEstanteria(producto, estanteria);
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            local.assignProductToEstanteria(producto, estanteria);
         }
     }
 
@@ -86,13 +89,19 @@ public class ProductoRepositoryImpl implements ProductoRepository {
         Producto producto = null;
         try {
             producto = remote.getProductoById(id);
+            if (producto != null) {
+                return producto;
+            } else {
+                System.out.println("Producto null");
+            }
         } catch (Exception e) {
             try {
                 producto = local.getProductoById(id);
             } catch (Exception e1) {
                 System.out.println("Error: " + e1.getMessage());
             }
+        } finally {
+            return local.getProductoById(id);
         }
-        return producto;
     }
 }

@@ -23,7 +23,7 @@ public class ProductoLocalDataSourceImpl implements ProductoLocalDataSource {
     @Override
     public void addUndsProduct(Producto producto, int cantidad) {
         try {
-            dao.addUndsProduct(producto.getId(), producto.getCantidad());
+            dao.addUndsProduct(producto.getId(), cantidad);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }

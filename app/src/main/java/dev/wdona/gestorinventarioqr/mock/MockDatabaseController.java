@@ -8,7 +8,7 @@ import java.util.Iterator;
 import dev.wdona.gestorinventarioqr.domain.model.Estanteria;
 import dev.wdona.gestorinventarioqr.domain.model.Producto;
 
-public class DatabaseController implements MockDatabaseOperations{
+public class MockDatabaseController implements MockDatabaseOperations{
     @Override
     public void addUndsProduct(Producto producto, int cantidad) throws JSONException {
         System.out.println("Producto: " + producto + ", Cantidad añadida: " + cantidad);
@@ -117,4 +117,18 @@ public class DatabaseController implements MockDatabaseOperations{
             return null;
         }
     }
+
+    public static void initialize() {
+        try {
+            if (JSONUtils.crearArchivoSiNoExiste("estanterias.json")) {
+                JSONUtils.mockearEstanteriasBase();
+            }
+            if (JSONUtils.crearArchivoSiNoExiste("productos.json")) {
+                JSONUtils.mockearProductosBase();
+            }
+        } catch (Exception e) {
+            System.out.println("Error al inicializar archivos JSON: " + e.getMessage());
+        }
+    }
+
 }

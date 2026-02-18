@@ -23,4 +23,7 @@ public interface ProductoDao {
     @Query("SELECT * FROM Producto WHERE id = :id")
     ProductoEntity getProductoById(Long id);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertProducto(ProductoEntity productoEntity);
+
 }

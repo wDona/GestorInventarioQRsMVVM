@@ -58,4 +58,54 @@ public class JSONUtils {
             throw new RuntimeException(e);
         }
     }
+
+    public static boolean crearArchivoSiNoExiste(String nombreArchivo) {
+        java.io.File file = new java.io.File(nombreArchivo);
+        if (!file.exists()) {
+            try (java.io.FileWriter writer = new java.io.FileWriter(file)) {
+                writer.write("{}"); // Escribir un objeto JSON vacío
+                System.out.println("Archivo JSON creado exitosamente: " + nombreArchivo);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public static void mockearProductosBase() throws JSONException {
+        String nombreArchivo = "productos.json";
+        crearArchivoSiNoExiste(nombreArchivo);
+
+        JSONObject producto1 = new JSONObject();
+        producto1.put("id", 1);
+        producto1.put("nombre", "Producto A");
+        producto1.put("cantidad", 10);
+        producto1.put("estanteriaId", 1);
+
+        JSONObject producto2 = new JSONObject();
+        producto2.put("id", 2);
+        producto2.put("nombre", "Producto B");
+        producto2.put("cantidad", 5);
+        producto2.put("estanteriaId", 2);
+
+        anadirJSONObjectAlArchivo(producto1, nombreArchivo);
+        anadirJSONObjectAlArchivo(producto2, nombreArchivo);
+    }
+
+    public static void mockearEstanteriasBase() throws JSONException {
+        String nombreArchivo = "estanterias.json";
+        crearArchivoSiNoExiste(nombreArchivo);
+
+        JSONObject estanteria1 = new JSONObject();
+        estanteria1.put("id", 1);
+        estanteria1.put("nombre", "Estanteria 1");
+
+        JSONObject estanteria2 = new JSONObject();
+        estanteria2.put("id", 2);
+        estanteria2.put("nombre", "Estanteria 2");
+
+        anadirJSONObjectAlArchivo(estanteria1, nombreArchivo);
+        anadirJSONObjectAlArchivo(estanteria2, nombreArchivo);
+    }
 }

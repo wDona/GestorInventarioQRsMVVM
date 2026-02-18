@@ -1,6 +1,7 @@
 package dev.wdona.gestorinventarioqr.data.db;
 
 import androidx.room.Dao;
+import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
@@ -22,4 +23,8 @@ public interface EstanteriaDao {
 
     @Query("SELECT * FROM Producto WHERE FK_estanteriaId = :idEstanteria")
     List<ProductoEntity> getProductosByEstanteriaId(Long idEstanteria);
+    @Query("SELECT COUNT(*) FROM Estanteria")
+    int getCount();
+    @Insert
+    void insertEstanteria(EstanteriaEntity estanteria);
 }

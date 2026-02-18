@@ -186,7 +186,9 @@ public class ScanActivity extends AppCompatActivity implements ScannerManager.Sc
                     }
                 });
             } catch (NumberFormatException e) {
-
+                runOnUiThread(() ->
+                        Toast.makeText(this, "ID de producto inválido: " + id, Toast.LENGTH_SHORT).show()
+                );
             }
         });
     }
@@ -201,7 +203,7 @@ public class ScanActivity extends AppCompatActivity implements ScannerManager.Sc
                     if (producto != null) {
                         showProductoOptionsDialog(producto);
                     } else {
-                        Toast.makeText(this, "Producto no encontrado", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Producto no encontrado, null", Toast.LENGTH_SHORT).show();
                     }
                 });
             } catch (NumberFormatException e) {
@@ -257,19 +259,39 @@ public class ScanActivity extends AppCompatActivity implements ScannerManager.Sc
                             } else {
                                 exito = productoViewModel.removeUndsProduct(producto, cantidad);
                             }
-                            runOnUiThread(() -> {
-                                if (exito) {
-                                    Toast.makeText(this, "Operación realizada", Toast.LENGTH_SHORT).show();
+                            if (exito) {
+                                // Recargar datos después de la operación
+                                Producto productoActualizado = productoViewModel.getProductoById(producto.getId());
+
+                                // Si hay estantería actual, recargar sus productos
+                                if (currentEstanteria != null) {
+                                    Estanteria estanteriaActualizada = estanteriaViewModel.getEstanteriaConProductosById(currentEstanteria.getId());
+                                    runOnUiThread(() -> {
+                                        if (estanteriaActualizada != null) {
+                                            currentEstanteria = estanteriaActualizada;
+                                            adapter.setProductos(estanteriaActualizada.getProductos());
+                                        }
+                                        Toast.makeText(this, "Operación realizada", Toast.LENGTH_SHORT).show();
+                                    });
                                 } else {
-                                    Toast.makeText(this, "Error en la operación", Toast.LENGTH_SHORT).show();
+                                    runOnUiThread(() -> {
+                                        Toast.makeText(this, "Operación realizada: " +
+                                                        (productoActualizado != null ? productoActualizado.getCantidad() + " uds" : ""),
+                                                Toast.LENGTH_SHORT).show();
+                                    });
                                 }
-                            });
+                            } else {
+                                runOnUiThread(() ->
+                                        Toast.makeText(this, "Error en la operación", Toast.LENGTH_SHORT).show()
+                                );
+                            }
                         });
                     }
                 })
                 .setNegativeButton("Cancelar", null)
                 .show();
     }
+
 
     private void asignarProductoAEstanteria(Producto producto) {
         executor.execute(() -> {

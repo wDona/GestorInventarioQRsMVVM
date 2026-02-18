@@ -18,6 +18,7 @@ import dev.wdona.gestorinventarioqr.data.db.EstanteriaDao;
 import dev.wdona.gestorinventarioqr.data.db.ProductoDao;
 import dev.wdona.gestorinventarioqr.data.repository.EstanteriaRepositoryImpl;
 import dev.wdona.gestorinventarioqr.data.repository.ProductoRepositoryImpl;
+import dev.wdona.gestorinventarioqr.mock.MockDatabaseController;
 import dev.wdona.gestorinventarioqr.presentation.viewmodel.EstanteriaViewModel;
 import dev.wdona.gestorinventarioqr.presentation.viewmodel.ProductoViewModel;
 
@@ -71,9 +72,9 @@ public class MainActivity extends AppCompatActivity {
         EstanteriaApiImpl estanteriaApi = new EstanteriaApiImpl();
         ProductoApiImpl productoApi = new ProductoApiImpl();
 
-        AppDatabase db = AppDatabase.getDatabase(getApplicationContext());
-        ProductoDao productoDao = db.productoDao();
-        EstanteriaDao estanteriaDao = db.estanteriaDao();
+        AppDatabase appDatabase = AppDatabase.getDatabase(getApplicationContext());
+        ProductoDao productoDao = appDatabase.productoDao();
+        EstanteriaDao estanteriaDao = appDatabase.estanteriaDao();
 
         EstanteriaLocalDataSourceImpl estanteriaLocalDataSource = new EstanteriaLocalDataSourceImpl(estanteriaDao);
         ProductoLocalDataSourceImpl productoLocalDataSource = new ProductoLocalDataSourceImpl(productoDao, estanteriaDao);
@@ -86,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
 
         this.estanteriaViewModel = new EstanteriaViewModel(estanteriaRepository);
         this.productoViewModel = new ProductoViewModel(productoRepository);
+
+        appDatabase.populateInitialData();
+        MockDatabaseController.initialize();
 
     }
 }

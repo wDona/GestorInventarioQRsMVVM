@@ -5,6 +5,7 @@ import java.util.List;
 import dev.wdona.gestorinventarioqr.data.datasource.mapper.EstanteriaMapper;
 import dev.wdona.gestorinventarioqr.data.datasource.mapper.ProductoMapper;
 import dev.wdona.gestorinventarioqr.data.db.EstanteriaDao;
+import dev.wdona.gestorinventarioqr.data.entity.EstanteriaEntity;
 import dev.wdona.gestorinventarioqr.data.relation.RelacionEstanteriaProducto;
 import dev.wdona.gestorinventarioqr.domain.model.Estanteria;
 
@@ -16,7 +17,12 @@ public class EstanteriaLocalDataSourceImpl {
     }
 
     public Estanteria getEstanteriaById(Long id) {
-        Estanteria estanteria = EstanteriaMapper.toDomain(dao.getEstanteriaById(id));
+        EstanteriaEntity entity = dao.getEstanteriaById(id);
+        if (entity == null) {
+            System.out.println("Estanteria no encontrada con ID: " + id);
+            return null;
+        }
+        Estanteria estanteria = EstanteriaMapper.toDomain(entity);
         estanteria.setProductos(ProductoMapper.toDomainList(dao.getProductosByEstanteriaId(id), estanteria));
         return estanteria;
     }
