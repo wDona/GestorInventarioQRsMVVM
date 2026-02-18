@@ -9,7 +9,7 @@ import dev.wdona.gestorinventarioqr.domain.model.Producto;
 public class ProductoLocalDataSourceImpl implements ProductoLocalDataSource {
     ProductoDao dao;
 
-    ProductoLocalDataSourceImpl(ProductoDao dao) {
+    public ProductoLocalDataSourceImpl(ProductoDao dao) {
         this.dao = dao;
     }
 

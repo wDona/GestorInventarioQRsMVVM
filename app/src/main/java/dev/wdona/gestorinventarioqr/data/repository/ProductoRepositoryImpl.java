@@ -13,7 +13,7 @@ public class ProductoRepositoryImpl implements ProductoRepository {
     OperacionRepositoryImpl registro;
 
 
-    ProductoRepositoryImpl(ProductoRemoteDataSourceImpl remote, ProductoLocalDataSourceImpl local) {
+    public ProductoRepositoryImpl(ProductoRemoteDataSourceImpl remote, ProductoLocalDataSourceImpl local) {
         this.remote = remote;
         this.local = local;
     }

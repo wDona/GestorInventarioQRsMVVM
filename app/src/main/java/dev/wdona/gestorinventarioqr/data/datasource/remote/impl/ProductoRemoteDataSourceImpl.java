@@ -9,7 +9,7 @@ import dev.wdona.gestorinventarioqr.domain.model.Producto;
 
 public class ProductoRemoteDataSourceImpl implements ProductoRemoteDataSource {
     ProductoApi api;
-    ProductoRemoteDataSourceImpl(ProductoApi api) {
+    public ProductoRemoteDataSourceImpl(ProductoApi api) {
         this.api = api;
     }
 

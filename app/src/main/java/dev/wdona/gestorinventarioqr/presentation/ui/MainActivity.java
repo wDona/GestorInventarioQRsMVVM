@@ -5,6 +5,19 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import dev.wdona.gestorinventarioqr.R;
+import dev.wdona.gestorinventarioqr.data.api.impl.EstanteriaApiImpl;
+import dev.wdona.gestorinventarioqr.data.api.impl.ProductoApiImpl;
+import dev.wdona.gestorinventarioqr.data.datasource.local.impl.EstanteriaLocalDataSourceImpl;
+import dev.wdona.gestorinventarioqr.data.datasource.local.impl.ProductoLocalDataSourceImpl;
+import dev.wdona.gestorinventarioqr.data.datasource.remote.impl.EstanteriaRemoteDataSourceImpl;
+import dev.wdona.gestorinventarioqr.data.datasource.remote.impl.ProductoRemoteDataSourceImpl;
+import dev.wdona.gestorinventarioqr.data.db.AppDatabase;
+import dev.wdona.gestorinventarioqr.data.db.EstanteriaDao;
+import dev.wdona.gestorinventarioqr.data.db.ProductoDao;
+import dev.wdona.gestorinventarioqr.data.repository.EstanteriaRepositoryImpl;
+import dev.wdona.gestorinventarioqr.data.repository.ProductoRepositoryImpl;
+import dev.wdona.gestorinventarioqr.presentation.viewmodel.EstanteriaViewModel;
+import dev.wdona.gestorinventarioqr.presentation.viewmodel.ProductoViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,16 +44,41 @@ public class MainActivity extends AppCompatActivity {
      * DataSources: Encapsulan el acceso a los datos, ya sea local (SQLite, Room (DAO)) o remoto (API) (RemoteDataSource, LocalDataSource).
      */
 
+    EstanteriaViewModel estanteriaViewModel;
+    ProductoViewModel productoViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        inicializarComponentes();
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    private void inicializarComponentes() {
+        EstanteriaApiImpl estanteriaApi = new EstanteriaApiImpl();
+        ProductoApiImpl productoApi = new ProductoApiImpl();
+
+        AppDatabase db = AppDatabase.getDatabase(getApplicationContext());
+        ProductoDao productoDao = db.productoDao();
+        EstanteriaDao estanteriaDao = db.estanteriaDao();
+
+        EstanteriaLocalDataSourceImpl estanteriaLocalDataSource = new EstanteriaLocalDataSourceImpl(estanteriaDao);
+        ProductoLocalDataSourceImpl productoLocalDataSource = new ProductoLocalDataSourceImpl(productoDao);
+
+        EstanteriaRemoteDataSourceImpl estanteriaRemoteDataSource = new EstanteriaRemoteDataSourceImpl(estanteriaApi);
+        ProductoRemoteDataSourceImpl productoRemoteDataSource = new ProductoRemoteDataSourceImpl(productoApi);
+
+        EstanteriaRepositoryImpl estanteriaRepository = new EstanteriaRepositoryImpl(estanteriaRemoteDataSource, estanteriaLocalDataSource);
+        ProductoRepositoryImpl productoRepository = new ProductoRepositoryImpl(productoRemoteDataSource, productoLocalDataSource);
+
+        this.estanteriaViewModel = new EstanteriaViewModel(estanteriaRepository);
+        this.productoViewModel = new ProductoViewModel(productoRepository);
+
     }
 }
