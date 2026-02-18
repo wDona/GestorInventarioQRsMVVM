@@ -51,4 +51,19 @@ public class ProductoApiImpl implements ProductoApi {
             System.out.println("Error al asignar producto a estanteria: " + e.getMessage());
         }
     }
+
+    @Override
+    public Producto getProductoById(Long id) {
+        if (id == null || id <= 0) {
+            System.out.println("Error, ID no válido");
+            return null;
+        }
+
+        try {
+            return mockDatabaseOperations.getProductoById(id);
+        } catch (Exception e) {
+            System.out.println("Error al obtener producto por ID: " + e.getMessage());
+            return null;
+        }
+    }
 }

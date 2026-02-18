@@ -11,6 +11,7 @@ public class EstanteriaMapper {
         EstanteriaEntity entity = new EstanteriaEntity();
         entity.setId(estanteria.getId());
         entity.setNombre(estanteria.getNombre());
+
         return entity;
     }
 
@@ -19,6 +20,13 @@ public class EstanteriaMapper {
                 entity.getId(),
                 entity.getNombre(),
                 productos
+        );
+    }
+
+    public static Estanteria toDomain(EstanteriaEntity entity) {
+        return new Estanteria(
+                entity.getId(),
+                entity.getNombre()
         );
     }
 }

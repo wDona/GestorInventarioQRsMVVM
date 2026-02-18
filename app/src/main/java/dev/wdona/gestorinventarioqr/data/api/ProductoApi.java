@@ -7,4 +7,5 @@ public interface ProductoApi {
     void addUndsProduct(Producto producto, int cantidad);
     void removeUndsProduct(Producto producto, int cantidad);
     void assignProductToEstanteria(Producto producto, Estanteria estanteria);
+    Producto getProductoById(Long id);
 }

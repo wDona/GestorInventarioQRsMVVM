@@ -80,4 +80,19 @@ public class ProductoRepositoryImpl implements ProductoRepository {
             System.out.println("Error: " + e.getMessage());
         }
     }
+
+    @Override
+    public Producto getProductoById(Long id) {
+        Producto producto = null;
+        try {
+            producto = remote.getProductoById(id);
+        } catch (Exception e) {
+            try {
+                producto = local.getProductoById(id);
+            } catch (Exception e1) {
+                System.out.println("Error: " + e1.getMessage());
+            }
+        }
+        return producto;
+    }
 }

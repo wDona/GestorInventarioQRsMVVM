@@ -2,6 +2,8 @@ package dev.wdona.gestorinventarioqr.data.datasource.local.impl;
 
 import java.util.List;
 
+import dev.wdona.gestorinventarioqr.data.datasource.mapper.EstanteriaMapper;
+import dev.wdona.gestorinventarioqr.data.datasource.mapper.ProductoMapper;
 import dev.wdona.gestorinventarioqr.data.db.EstanteriaDao;
 import dev.wdona.gestorinventarioqr.data.relation.RelacionEstanteriaProducto;
 import dev.wdona.gestorinventarioqr.domain.model.Estanteria;
@@ -14,7 +16,9 @@ public class EstanteriaLocalDataSourceImpl {
     }
 
     public Estanteria getEstanteriaById(Long id) {
-        return dao.getEstanteriaById(id);
+        Estanteria estanteria = EstanteriaMapper.toDomain(dao.getEstanteriaById(id));
+        estanteria.setProductos(ProductoMapper.toDomainList(dao.getProductosByEstanteriaId(id), estanteria));
+        return estanteria;
     }
 
     public RelacionEstanteriaProducto getEstanteriaConProductosById(Long idEstanteria) {

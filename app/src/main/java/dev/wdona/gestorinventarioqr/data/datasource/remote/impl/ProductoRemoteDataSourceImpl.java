@@ -41,6 +41,16 @@ public class ProductoRemoteDataSourceImpl implements ProductoRemoteDataSource {
     }
 
     @Override
+    public Producto getProductoById(Long id) {
+        try {
+            return api.getProductoById(id);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
     public void sincronizarPendientes(List<Producto> productosPendientes) {
         // TODO
     }

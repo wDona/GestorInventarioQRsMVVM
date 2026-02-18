@@ -48,4 +48,8 @@ public class ProductoViewModel extends ViewModel {
     public void assignProductToEstanteria(Producto producto, Estanteria estanteria) {
         repository.assignProductToEstanteria(producto, estanteria);
     }
+
+    public Producto getProductoById(Long id) {
+        return repository.getProductoById(id);
+    }
 }

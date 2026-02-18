@@ -3,6 +3,7 @@ package dev.wdona.gestorinventarioqr.data.entity;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
+import androidx.room.PrimaryKey;
 
 @Entity(
         tableName = "Producto",
@@ -12,9 +13,10 @@ import androidx.room.Index;
                 childColumns = "FK_estanteriaId",
                 onDelete = ForeignKey.SET_NULL
         ),
-        indices = @Index("estanteriaId")
+        indices = @Index("FK_estanteriaId")
 )
 public class ProductoEntity {
+    @PrimaryKey
     private Long id;
     private String nombre;
     private double precio;

@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">GestorInventarioQR</string>
+    <string name="app_name">Barcode 2D Scanner</string>
+    <string name="scan_result_placeholder">Resultado del escaneo aparecerá aquí</string>
+    <string name="btn_scan">Escanear</string>
+    <string name="btn_stop">Detener</string>
+    <string name="initializing">Inicializando escáner...</string>
+    <string name="init_success">Escáner inicializado correctamente</string>
+    <string name="init_failed">Error al inicializar el escáner</string>
 </resources>

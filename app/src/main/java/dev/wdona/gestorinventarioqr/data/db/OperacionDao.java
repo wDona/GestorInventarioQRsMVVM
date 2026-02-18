@@ -1,5 +1,6 @@
 package dev.wdona.gestorinventarioqr.data.db;
 
+import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import dev.wdona.gestorinventarioqr.domain.model.Operacion;
 
+@Dao
 public interface OperacionDao {
         @Insert(onConflict = OnConflictStrategy.REPLACE)
         void addOperacionPendiente(Operacion operacionPendiente);

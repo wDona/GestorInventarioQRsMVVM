@@ -1,6 +1,8 @@
 package dev.wdona.gestorinventarioqr.presentation.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -53,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         inicializarComponentes();
 
+        Button btnScanEstanteria = findViewById(R.id.btnScan);
+        btnScanEstanteria.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ScanActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override
@@ -69,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         EstanteriaDao estanteriaDao = db.estanteriaDao();
 
         EstanteriaLocalDataSourceImpl estanteriaLocalDataSource = new EstanteriaLocalDataSourceImpl(estanteriaDao);
-        ProductoLocalDataSourceImpl productoLocalDataSource = new ProductoLocalDataSourceImpl(productoDao);
+        ProductoLocalDataSourceImpl productoLocalDataSource = new ProductoLocalDataSourceImpl(productoDao, estanteriaDao);
 
         EstanteriaRemoteDataSourceImpl estanteriaRemoteDataSource = new EstanteriaRemoteDataSourceImpl(estanteriaApi);
         ProductoRemoteDataSourceImpl productoRemoteDataSource = new ProductoRemoteDataSourceImpl(productoApi);
